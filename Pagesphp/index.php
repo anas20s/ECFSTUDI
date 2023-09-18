@@ -44,15 +44,23 @@
 <?php
     include 'connexionBaseDeDonnées.php';
 ?>
-
 <?php
-if (isset($_POST['submit_commentaire'])) {
-    $pseudo = $_POST['pseudo'];
-    $commentaire = $_POST['commentaire'];
-    $query = $conn->prepare("INSERT INTO commentaire (pseudo, commentaire, etat) VALUES (?, ?, 'En attente d''approbation')");
-    $query->execute([$pseudo, $commentaire]);
+$database = new Database();
+$conn = $database->getConnection();
+class CommentairesManager {
+    private $conn;
+    public function __construct($db) {
+        $this->conn = $db;
+    }
+    public function getCommentairesApprouves() {
+        $commentairesApprouves = $this->conn->query("SELECT * FROM commentaire WHERE etat = 'Approuvé'")->fetchAll(PDO::FETCH_ASSOC);
+        return $commentairesApprouves;
+    }
 }
+$commentairesManager = new CommentairesManager($conn);
+$commentairesApprouves = $commentairesManager->getCommentairesApprouves();
 ?>
+
 <!-- Formulaire pour soumettre un commentaire -->
 <div class="comm">
     <h2>Commentaires :</h2>
@@ -69,14 +77,12 @@ if (isset($_POST['submit_commentaire'])) {
         <h3>Avis des clients</h3>
     </div>
     <ul>
-        <?php
-        $commentairesApprouves = $conn->query("SELECT * FROM commentaire WHERE etat = 'Approuvé'")->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($commentairesApprouves as $commentaireApprouve) {
-            echo "<li>{$commentaireApprouve['pseudo']}: {$commentaireApprouve['commentaire']}</li>";
-        }
-        ?>
+        <?php foreach ($commentairesApprouves as $commentaireApprouve): ?>
+            <li><?php echo "{$commentaireApprouve['pseudo']}: {$commentaireApprouve['commentaire']}"; ?></li>
+        <?php endforeach; ?>
     </ul>
 </div>
+
 
 
 
