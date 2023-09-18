@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nous contacter</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
 <body>
     <!--voici le l'en tete de toutes les pages-->
     <?php include 'header.php'; ?>
