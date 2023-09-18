@@ -44,23 +44,16 @@
 <?php
     include 'connexionBaseDeDonnées.php';
 ?>
+    <!--On récupere les commentaire dans la base de données-->
 <?php
-$database = new Database();
-$conn = $database->getConnection();
-class CommentairesManager {
-    private $conn;
-    public function __construct($db) {
-        $this->conn = $db;
-    }
-    public function getCommentairesApprouves() {
-        $commentairesApprouves = $this->conn->query("SELECT * FROM commentaire WHERE etat = 'Approuvé'")->fetchAll(PDO::FETCH_ASSOC);
-        return $commentairesApprouves;
-    }
+  if (isset($_POST['submit_commentaire'])) {
+    $pseudo = $_POST['pseudo'];
+    $commentaire = $_POST['commentaire'];
+    $query = $conn->prepare("INSERT INTO commentaire (pseudo, commentaire) VALUES (?, ?)");
+    $query->execute([$pseudo, $commentaire]);
 }
-$commentairesManager = new CommentairesManager($conn);
-$commentairesApprouves = $commentairesManager->getCommentairesApprouves();
+$commentairesExistants = $conn->query("SELECT * FROM commentaire")->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!-- Formulaire pour soumettre un commentaire -->
 <div class="comm">
     <h2>Commentaires :</h2>
