@@ -90,6 +90,5 @@ $commentairesApprouves = $commentairesManager->getCommentairesApprouves();
 <?php include 'footer.php'?>
 
 
-
 </body>
 </html>
