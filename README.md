@@ -1,4 +1,7 @@
-# ECFSTUDI
+# ECFSTUDI pour lexecution en local
+cloner votre projet sur votre machine :
+    git clone https://github.com/anas20s/ECFSTUDI
+
 # Pour se connecter en tant qu'administrateur :
 email : vincentparrot@gmail.com
 mot de passe : vincent parrot
@@ -7,7 +10,7 @@ et en tant qu'employé :
 email : anasszehafi@gmail.com
 mot de passe : anasszehafi
 
-# Guide 
+# table et base de donée
 
 
 
